@@ -6,7 +6,7 @@ import {Message} from './components/Message';
 
 
 ReactDOM.render(
-  <Message text='text from props' />,
+  <App text='text from props' />,
   document.getElementById('root')
 );
 
