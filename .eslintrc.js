@@ -31,7 +31,7 @@ module.exports = {
     ],
     'react/prop-types': 0,
     'linebreak-style': ['error', 'unix'],
-    quotes: ['warn', 'single'],
+    quotes: ['warn', 'double'],
     semi: ['warn', 'always'],
   },
   overrides: [

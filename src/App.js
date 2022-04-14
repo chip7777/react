@@ -17,19 +17,21 @@ export const App = () => {
   };
 
   useEffect(() => {
-    if (messageList.length)
-      if (messageList[messageList.length - 1].Author === Author.Men)
-        setTimeout(() => sendMess(), 1500);
+    if (
+      messageList.length &&
+      messageList[messageList.length - 1].Author === Author.Men
+    )
+      setTimeout(() => sendMess(), 1500);
   }, [messageList]);
 
   return (
     <>
       <ul>
-        {messageList.map((el) => (
-          <li>{el.Author + ' : ' + el.Mess}</li>
+        {messageList.map((el, idx) => (
+          <li key={idx}>{el.Author + ' : ' + el.Mess}</li>
         ))}
       </ul>
-      <input type="text" onInput={handleInput} value={message}></input>
+      <input type='text' onInput={handleInput} value={message}></input>
       <button onClick={handleClick}>send</button>
     </>
   );
