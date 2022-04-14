@@ -25,7 +25,7 @@ export const App = () => {
   }, [messageList]);
 
   return (
-    <>
+    <div>
       <ul>
         {messageList.map((el, idx) => (
           <li key={idx}>{el.Author + ' : ' + el.Mess}</li>
@@ -33,6 +33,6 @@ export const App = () => {
       </ul>
       <input type='text' onInput={handleInput} value={message}></input>
       <button onClick={handleClick}>send</button>
-    </>
+    </div>
   );
 };
