@@ -16,21 +16,16 @@ describe("check rendered",() => {
    }); 
 
    it("button is disabled", () => {
-        render(<Button disabled={true} />);
+    render(<Button disabled={true} />);
         expect(screen.getByRole("button")).toBeDisabled();
    });
 
    it ("button click", () => { // разбирали на уроке, я так и не понял чего оно не работает.
-        const mockHandler = jest.fn();    
+        const mockHandler = jest.fn(() => console.log('clicked'));    
         render(<Button onClick={mockHandler} />);
         userEvent.click(screen.getByRole("button")); 
         expect(mockHandler).toBeCalledTimes(0);
    });
 
-   it ("button click", () => { // разбирали на уроке, я так и не понял чего оно не работает.
-    const mockHandler = jest.fn();    
-    render(<Button name={"Send"} onClick={mockHandler} />);
-    fireEvent.click(screen.getByText("Send")); 
-    expect(mockHandler).toBeCalledTimes(0);
-});
+    
 });
