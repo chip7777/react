@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
 import { Input } from './Input';
-
+import { nanoid } from 'nanoid';
 
 
 export const Form = () => {
     const [messageList, setMessageList] = useState([]);
     const [message, setMessage] = useState('');
     const [author,setAuthor] = useState({ men: 'men', bot: 'bot' });
-    const [name,setName] = useState('Push');
+    const [name,setName] = useState('Send');
     const [visible,setVisible] = useState(false);
     
     const handleInput = (ev) => {
@@ -17,13 +17,14 @@ export const Form = () => {
     const handleClick = () => {
         setMessageList([...messageList, { mess: message, author: author.men }]);
         setMessage('');
+        document.querySelector("input").focus();
     };
 
     const sendMess = (mess) => {
         setMessageList([...messageList, { mess: mess, author: author.bot }]);
         setVisible(messageList.length);
       };
-    
+
     useEffect(() => {
         if (
           messageList.length &&
@@ -39,8 +40,8 @@ export const Form = () => {
     return (
   <>
     {visible && <ul> 
-        {messageList.map((el, idx) => (
-          <li key={idx}>{el.author + ' : ' + el.mess}</li>
+        {messageList.map((el) => (
+          <li key={nanoid()}>{el.author + ' : ' + el.mess}</li>
         ))}
     </ul>}
     <Input handleInput={handleInput} message={message}/>

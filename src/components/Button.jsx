@@ -1,5 +1,6 @@
 import React, { Memo } from 'react';
+import ButtonUA from '@mui/material/Button';
 
 export const Button = (props) => {
-  return <button disabled={ props.disabled } onClick={ props.handleClick }>{ props.name }</button>;
+  return <ButtonUA variant='outlined' disabled={ props.disabled } onClick={ props.handleClick }>{ props.name }</ButtonUA>;
 };
