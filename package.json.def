@@ -24,9 +24,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "webpack serve --mode=development --open",
+    "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "npx tsc --noEmit && npx eslint ./src --ext .js,.jsx --fix",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "test": "react-scripts test",
@@ -61,7 +60,6 @@
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
     "babel": "^6.23.0",
-    "babel-loader": "^8.2.5",
     "compression-webpack-plugin": "^9.2.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-storybook": "^0.5.10",
@@ -69,7 +67,6 @@
     "nanoid": "^3.3.3",
     "storybook": "^6.4.22",
     "ts-loader": "^9.2.8",
-    "typescript": "^4.6.3",
-    "webpack-cli": "^4.9.2"
+    "typescript": "^4.6.3"
   }
 }
