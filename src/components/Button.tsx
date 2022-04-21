@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import ButtonUA from '@mui/material/Button';
 
-export const Button = (props) => {
-  return <ButtonUA variant='outlined' disabled={ props.disabled } onClick={ props.handleClick }>{ props.name }</ButtonUA>;
+interface ButtonProps {
+  disabled: boolean;
+  handleClick: () => void;
+  name: string;
+}
+
+export const Button: FC<ButtonProps> = ({ disabled, handleClick, name }) => {
+  return (
+    <ButtonUA variant="outlined" disabled={disabled} onClick={handleClick}>
+      {name}
+    </ButtonUA>
+  );
 };

@@ -1,6 +1,5 @@
 import { Input } from "./Input";
 import { render, screen, fireEvent } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 
 describe("check Function", () => {
@@ -10,17 +9,14 @@ describe("check Function", () => {
 });
 
 describe("check rendered",() => {
-    beforeEach(() => {
-      render(<Input />);
-      
-    });
-
-    it("render input field", () => {
+   it("render input field", () => {
+        render(<Input />);
         const el = screen.getByRole("textbox");
         expect(el).toBeInTheDocument();
    });
    
    it("text present",() => {
+        render(<Input />);    
         const el = screen.getByRole("textbox");
         fireEvent.change(el, {target: {value: "abc"}});
         expect(screen.getByDisplayValue("abc")).toBeTruthy();
