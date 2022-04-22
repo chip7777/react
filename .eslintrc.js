@@ -1,45 +1,60 @@
 module.exports = {
-  env: {
-    browser: true,
-    node : true,
-    es6: true,
-  },
-  extends: [
-    'plugin:react/recommended',
-    'eslint:recommended',
-    'plugin:prettier/recommended',
-    'plugin:react/recommended',
-    'prettier',
-    'plugin:react-hooks/recommended',
-  ],
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
+    root: true,
+    parser: '@babel/eslint-parser',
+    plugins: ['react', 'react-hooks', 'jsx-a11y', 'import', 'prettier'],
+    extends: ['plugin:prettier/recommended', 'prettier'],
+    env: {
+      browser: true,
     },
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-  },
-  plugins: [
-    'react', 'prettier', 'react-hooks', 'jest'
-  ],
-  rules: {
-    'prettier/prettier': [
-      'error',
+    rules: {
+      'linebreak-style': 0,
+      'max-len': ['error', { code: 120, ignoreStrings: true }],
+      'no-underscore-dangle': ['error', { allow: ['_id'] }],
+      'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
+      'prefer-destructuring': [
+        'error',
+        {
+          VariableDeclarator: {
+            array: false,
+            object: true,
+          },
+          AssignmentExpression: {
+            array: true,
+            object: false,
+          },
+        },
+        {
+          enforceForRenamedProperties: false,
+        },
+      ],
+  
+      'import/prefer-default-export': 'off',
+  
+      'jsx-a11y/anchor-is-valid': 'off',
+      'jsx-a11y/media-has-caption': 'off',
+  
+      'react/react-in-jsx-scope': 'off',
+      'react/jsx-no-duplicate-props': ['error', { ignoreCase: false }],
+      'react/jsx-filename-extension': [
+        'error',
+        {
+          extensions: ['.js', '.jsx'],
+        },
+      ],
+  
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+  
+      'prettier/prettier': 1,
+    },
+    overrides: [
       {
-        singleQuote: true,
+        files: ['*.test.js', '*.spec.js'],
+        env: {
+          jest: true,
+          mocha: true,
+        },
       },
     ],
-    'react/prop-types': 0,
-    'linebreak-style': ['error', 'unix'],
-    quotes: ['warn', 'double'],
-    semi: ['warn', 'always'],
-  },
-  overrides: [
-    {
-      files: ['webpack.config.js'],
-      rules: {
-        '@typescript-eslint/no-var-requires': ['off'],
-      },
-    },
-  ],
-};
+  };
+  
