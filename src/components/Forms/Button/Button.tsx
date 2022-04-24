@@ -3,13 +3,12 @@ import ButtonUA from '@mui/material/Button';
 
 interface ButtonProps {
   disabled: boolean;
-  handleClick: () => void;
   name: string;
 }
 
-export const Button: FC<ButtonProps> = ({ disabled, handleClick, name }) => {
+export const Button: FC<ButtonProps> = ({ disabled, name }) => {
   return (
-    <ButtonUA variant="outlined" disabled={disabled} onClick={handleClick}>
+    <ButtonUA variant="outlined" type="submit" disabled={disabled} >
       {name}
     </ButtonUA>
   );

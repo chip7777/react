@@ -1,4 +1,4 @@
-import { Form } from "./Form";
+import { Form } from "./Form/Form";
 
 describe("check Function", () => {
     it("is a function", () => {
