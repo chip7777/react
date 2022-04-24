@@ -8,7 +8,12 @@ module.exports = {
     path: path.resolve(__dirname, './build'),
   },
   resolve: {
-    extensions: ['.jsx', '.js', '.tsx', '.ts']
+    extensions: ['.jsx', '.js', '.tsx', '.ts'],
+    alias: {
+      components: path.resolve(__dirname, 'src/components'),
+      src: path.resolve(__dirname, 'src'),
+      forms: path.resolve(__dirname, 'src/components/Forms'),
+    },
   },
   devtool: 'eval-source-map',
   module: {
@@ -20,16 +25,13 @@ module.exports = {
       },
       {
         test: /\.css?$/i,
-        use: [
-         'style-loader',
-         'css-loader',
-        ],
-      }
-    ]
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
-  ]
-}
+  ],
+};
