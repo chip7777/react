@@ -1,11 +1,11 @@
 import React, { FC, useCallback, useEffect } from 'react';
 
-import { MessageList } from 'components/MessageList/MessageList';
-import { Form } from 'components/Forms/Form';
+import { MessageList } from '../components/MessageList/MessageList';
+import { Form } from '../components/Forms/Form';
 import { nanoid } from 'nanoid';
-import { AUTHOR } from 'src/constants';
-import { ChatList } from 'components/ChatList';
-import { Chat, Messages } from 'src/App';
+import { AUTHOR } from '../constants';
+import { ChatList } from '../components/ChatList';
+import { Chat, Messages } from '../App';
 import { Navigate, useParams } from 'react-router-dom';
 
 interface ChatsProps {

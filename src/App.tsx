@@ -1,15 +1,19 @@
 import React, { FC, useState, useMemo } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
+import { nanoid } from 'nanoid';
+import { Provider } from 'react-redux';
 
-import './App.css';
+import { ThemeContext, defaultContext } from './utils/ThemeContext';
 import { Header } from './components/Header';
 import { Chats } from './pages/Chats';
 import { Home } from './pages/Home';
+import { Error } from './pages/Error';
 import { Profile } from './pages/Profile';
 import { ChatList } from './components/ChatList';
 import { AUTHOR } from './constants';
-import { nanoid } from 'nanoid';
 
+import './App.css';
+import { store } from './store';
 export interface Chat {
   id: string;
   name: string;
@@ -18,9 +22,9 @@ export interface Chat {
 const initialMessage: Messages = {
   default: [
     {
-      id: nanoid(),
+      id: '1',
       author: AUTHOR.USER,
-      value: 'Welcome to chats',
+      value: 'Hello geekbrains',
     },
   ],
 };
@@ -37,6 +41,9 @@ export interface Messages {
 
 export const App: FC = () => {
   const [messages, setMessages] = useState<Messages>(initialMessage);
+  const [theme, setTheme] = useState(defaultContext.theme);
+
+  const currentUrl = window.location.pathname;
 
   const chatList = useMemo(
     () =>
@@ -48,11 +55,14 @@ export const App: FC = () => {
   );
 
   const onAddChat = (chat: Chat) => {
-    setMessages({
-      ...messages,
-      [chat.name]: [],
-    });
+    if (!messages[chat.name]) {
+      setMessages({
+        ...messages,
+        [chat.name]: [],
+      });
+    }
   };
+
   const onDeleteChat = (chatName: string) => {
     const newMessages: Messages = { ...messages };
     delete newMessages[chatName];
@@ -62,35 +72,52 @@ export const App: FC = () => {
     });
   };
 
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Header />}>
-          <Route index element={<Home />} />
-          <Route path="profile" element={<Profile />} />
-
-          <Route path="chats">
-            <Route
-              index
-              element={<ChatList chatList={chatList} onAddChat={onAddChat} onDeleteChat={onDeleteChat}/>}
-            />
-            <Route
-              path=":chatId"
-              element={
-                <Chats
-                  messages={messages}
-                  setMessages={setMessages}
-                  chatList={chatList}
-                  onAddChat={onAddChat}
-                  onDeleteChat={onDeleteChat}
+    <Provider store={store}>
+      <ThemeContext.Provider
+        value={{
+          theme,
+          toggleTheme,
+        }}
+      >
+        <HashRouter>
+          <Routes>
+            <Route path="/" element={<Header />}>
+              <Route index element={<Home />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="chats">
+                <Route
+                  index
+                  element={
+                    <ChatList
+                      chatList={chatList}
+                      onAddChat={onAddChat}
+                      onDeleteChat={onDeleteChat}
+                    />
+                  }
                 />
-              }
-            />
-          </Route>
-        </Route>
+                <Route
+                  path=":chatId"
+                  element={
+                    <Chats
+                      messages={messages}
+                      setMessages={setMessages}
+                      chatList={chatList}
+                      onAddChat={onAddChat}
+                      onDeleteChat={onDeleteChat}
+                    />
+                  }
+                />
+              </Route>
+            </Route>
 
-        <Route path="*" element={<h2>404</h2>} />
-      </Routes>
-    </BrowserRouter>
+            <Route path="*" element={<Error />}/>
+          </Routes>
+        </HashRouter>
+      </ThemeContext.Provider>
+    </Provider>
   );
 };
