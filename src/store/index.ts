@@ -1,19 +1,15 @@
-//import { configureStore } from '@reduxjs/toolkit';
-import { createStore, compose , combineReducers } from 'redux';
-import { chatReducer } from './chats/reducer';
-import { profileReducer } from './profile/reducer';
+import { configureStore } from '@reduxjs/toolkit';
+import { chatReducer, ChatsState } from './chats/reducer';
+import { profileReducer, ProfileState } from './profile/reducer';
 
-export const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export interface StoreState {
+  profile: ProfileState;
+  chats: ChatsState;
+}
 
-
-
-export const store = createStore(combineReducers({
-  profile: profileReducer,
-  chats: chatReducer
-}), composeEnhancers());
-/*
 export const store = configureStore({
-  reducer: profileReducer,
-  chats: chatReducer
+  reducer: {
+    chats: chatReducer,
+    profile: profileReducer,
+  },
 });
-*/

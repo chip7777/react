@@ -1,4 +1,4 @@
-import { AddChat, AddMessage, Chat, DeleteChat } from './types';
+import { AddChat, AddMessage, DeleteChat } from './types';
 
 export const ADD_CHAT = 'CHATS::ADD_CHAT';
 export const DELETE_CHAT = 'CHATS::DELETE_CHAT';

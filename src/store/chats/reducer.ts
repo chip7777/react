@@ -1,5 +1,6 @@
+import { Reducer } from '@reduxjs/toolkit';
 import { ADD_CHAT, DELETE_CHAT, ADD_MESSAGE } from './actions';
-import { Reducer } from 'redux';
+//import { Reducer } from 'redux';
 import { ChatsActions } from './types';
 import { nanoid } from 'nanoid';
 import { AUTHOR } from '../../constants';
@@ -15,7 +16,13 @@ export interface ChatsState {
 }
 
 const initialState: ChatsState = {
-  gb: [],
+  gb: [
+    {
+      id: '1',
+      author: AUTHOR.USER,
+      value: 'Hello geekbrains',
+    },
+  ],
 };
 
 export const chatReducer: Reducer<ChatsState, ChatsActions> = (

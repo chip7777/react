@@ -1,40 +1,30 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC } from 'react';
 
 import { MessageList } from '../components/MessageList/MessageList';
 import { Form } from '../components/Forms/Form';
-import { nanoid } from 'nanoid';
-import { AUTHOR } from '../constants';
 import { ChatList } from '../components/ChatList';
-import { Chat, Messages } from '../App';
 import { Navigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectChatList, selectChats } from '../store/chats/selectors';
 
-interface ChatsProps {
-  messages: Messages;
-  setMessages: React.Dispatch<React.SetStateAction<Messages>>;
-  chatList: Chat[];
-  onAddChat: (chats: Chat) => void;
-  onDeleteChat: (chat: string) => void;
-}
-export const Chats: FC<ChatsProps> = ({
-  chatList,
-  onAddChat,
-  onDeleteChat,
-  messages,
-  setMessages,
-}) => {
+export const Chats: FC = () => {
   const { chatId } = useParams();
 
+  const chats = useSelector(selectChats);
+  const chatList = useSelector(selectChatList);
+
+  /*
   useEffect(() => {
     if (
       chatId &&
-      messages[chatId]?.length > 0 &&
-      messages[chatId][messages[chatId].length - 1].author !== AUTHOR.BOT
+      chats[chatId]?.length > 0 &&
+      chats[chatId][chats[chatId].length - 1].author !== AUTHOR.BOT
     ) {
       const timeout = setTimeout(() => {
         setMessages({
-          ...messages,
+          ...chats,
           [chatId]: [
-            ...messages[chatId],
+            ...chats[chatId],
             {
               id: nanoid(),
               author: AUTHOR.BOT,
@@ -48,26 +38,7 @@ export const Chats: FC<ChatsProps> = ({
         clearTimeout(timeout);
       };
     }
-  }, [chatId, messages, setMessages]);
-
-  const addMessage = useCallback(
-    (value: string) => {
-      if (chatId) {
-        setMessages((prevMessage) => ({
-          ...prevMessage,
-          [chatId]: [
-            ...prevMessage[chatId],
-            {
-              id: nanoid(),
-              author: AUTHOR.USER,
-              value,
-            },
-          ],
-        }));
-      }
-    },
-    [chatId, setMessages]
-  );
+  }, [chatId, chats, setMessages]);*/
 
   if (!chatList.find((chat) => chat.name === chatId)) {
     return <Navigate replace to="/chats" />;
@@ -75,9 +46,9 @@ export const Chats: FC<ChatsProps> = ({
 
   return (
     <>
-      <ChatList chatList={chatList} onDeleteChat={onDeleteChat} onAddChat={onAddChat} />
-      <MessageList messages={chatId ? messages[chatId] : []} />
-      <Form addMessage={addMessage} />
+      <ChatList />
+      <MessageList messages={chatId ? chats[chatId] : []} />
+      <Form />
     </>
   );
 };
