@@ -5,10 +5,13 @@ export type ChatsActions =
 
 import { ADD_CHAT, ADD_MESSAGE, DELETE_CHAT } from './actions';
 
-export interface Message {
-  id: string;
+export type Message = {
+  text: string;
   author: string;
-  value: string;
+}
+
+export type MessageState = Message & {
+    id: string;
 }
 
 export interface Messages {
@@ -32,9 +35,9 @@ export type DeleteChat = (chatId: string) => {
 
 export type AddMessage = (
   chatId: string,
-  message: string,
+  message: Message,
 ) => {
   type: typeof ADD_MESSAGE;
   chatId: string;
-  message: string;
+  message: Message;
 };

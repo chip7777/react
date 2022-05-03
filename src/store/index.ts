@@ -1,15 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { chatReducer, ChatsState } from './chats/reducer';
 import { profileReducer, ProfileState } from './profile/reducer';
 
-export interface StoreState {
-  profile: ProfileState;
-  chats: ChatsState;
-}
+const rootReducer = combineReducers({
+  profile: profileReducer,
+  chats: chatReducer,
+});
+
+export type StoreState = ReturnType<typeof rootReducer>;
 
 export const store = configureStore({
-  reducer: {
-    chats: chatReducer,
-    profile: profileReducer,
+  reducer: rootReducer,
+  devTools: process.env.NODE_ENV !== 'production',
   },
-});
+);
