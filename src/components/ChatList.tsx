@@ -1,26 +1,21 @@
 import React, { FC, useState } from 'react';
-import { Chat } from '../App';
 import { Link, NavLink } from 'react-router-dom';
-import { nanoid } from 'nanoid';
 import { ListItem } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { addChat, deleteChat } from '../store/chats/actions';
+import { selectChatList } from '../store/chats/selectors';
 
-interface ChatListProps {
-  chatList: Chat[];
-  onAddChat: (chats: Chat) => void;
-  onDeleteChat: (chat: string) => void;
-}
-export const ChatList: FC<ChatListProps> = ({ chatList, onAddChat, onDeleteChat }) => {
+export const ChatList: FC = () => {
   const [name, setName] = useState('');
 
+  const dispatch = useDispatch();
+
+  const chatList = useSelector(selectChatList);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (name) {
-      onAddChat({
-        id: nanoid(),
-        name,
-      });
-
+      dispatch(addChat(name));
       setName('');
     }
   };
@@ -33,7 +28,7 @@ export const ChatList: FC<ChatListProps> = ({ chatList, onAddChat, onDeleteChat 
             <NavLink 
             style={({ isActive }) => ({ color: isActive ? 'green' : 'blue' })}
             to={`/chats/${chat.name}`}>{chat.name}</NavLink>
-            <button onClick={() => onDeleteChat(chat.name)}>x</button>
+            <button onClick={() => dispatch(deleteChat(chat.name))}>x</button>
           </ListItem>
         ))}
       </ul>
