@@ -6,6 +6,7 @@ const navigate = [
   { id: 1, to: '/', name: 'Home' },
   { id: 2, to: '/profile', name: 'Profile' },
   { id: 3, to: '/chats', name: 'Chats' },
+  { id: 4, to: '/about', name: 'About' },
 ];
 
 export const Header: FC = () => {

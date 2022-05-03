@@ -1,22 +1,22 @@
-import React, { FC, useState, useMemo, Suspense } from 'react';
+import React, { FC, useState, Suspense } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import { nanoid } from 'nanoid';
 
 import { ThemeContext, defaultContext } from './utils/ThemeContext';
 import { Header } from './components/Header';
+
+
+import { Home } from './pages/Home';
+import { Error } from './pages/Error';
+import { Profile } from './pages/Profile';
+import { ChatList } from './components/ChatList';
+import { AboutWithConnect } from './pages/About';
+import './App.css';
 
 const Chats = React.lazy(() =>
   import('./pages/Chats').then((module) => ({
     default: module.Chats,
   })),
 );
-import { Home } from './pages/Home';
-import { Error } from './pages/Error';
-import { Profile } from './pages/Profile';
-import { ChatList } from './components/ChatList';
-import { AUTHOR } from './constants';
-
-import './App.css';
 
 export const App: FC = () => {
   const [theme, setTheme] = useState(defaultContext.theme);
@@ -60,6 +60,8 @@ export const App: FC = () => {
                     }
                   />
                 </Route>
+                <Route path="about" element={<AboutWithConnect />} />
+            
               </Route>
 
               <Route path="*" element={<Error />} />
