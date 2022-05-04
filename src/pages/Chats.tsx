@@ -13,34 +13,7 @@ export const Chats: FC = () => {
   const chats = useSelector(selectChats);
   const chatList = useSelector(selectChatList);
 
-  /*
-  useEffect(() => {
-    if (
-      chatId &&
-      chats[chatId]?.length > 0 &&
-      chats[chatId][chats[chatId].length - 1].author !== AUTHOR.BOT
-    ) {
-      const timeout = setTimeout(() => {
-        setMessages({
-          ...chats,
-          [chatId]: [
-            ...chats[chatId],
-            {
-              id: nanoid(),
-              author: AUTHOR.BOT,
-              value: 'Im BOT',
-            },
-          ],
-        });
-      }, 1000);
-
-      return () => {
-        clearTimeout(timeout);
-      };
-    }
-  }, [chatId, chats, setMessages]);*/
-
-  if (!chatList.find((chat) => chat.name === chatId)) {
+   if (!chatList.find((chat) => chat.name === chatId)) {
     return <Navigate replace to="/chats" />;
   }
 

@@ -28,7 +28,7 @@ export const addMessageWithReply =
   (chatId: string, message: Message) =>
   (dispatch: Dispatch<ReturnType<AddMessage>>) => {
     dispatch(addMessage(chatId, message));
-    console.log(chatId, message);
+    
     if (message.author !== AUTHOR.BOT) {
       if (timeout) {
         clearTimeout(timeout);
