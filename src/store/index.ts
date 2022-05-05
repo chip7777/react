@@ -1,15 +1,28 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { chatReducer, ChatsState } from './chats/reducer';
-import { profileReducer, ProfileState } from './profile/reducer';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { chatReducer } from './chats/reducer';
+import { profileReducer } from './profile/reducer';
+import {  persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-export interface StoreState {
-  profile: ProfileState;
-  chats: ChatsState;
-}
+const rootReducer = combineReducers({
+  profile: profileReducer,
+  chats: chatReducer,
+});
+
+export type StoreState = ReturnType<typeof rootReducer>;
+
+const persistConfig = {
+  key: 'gb_1889',
+  storage,
+  blacklist: ['profile'],
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    chats: chatReducer,
-    profile: profileReducer,
+  reducer: persistedReducer,
+  devTools: process.env.NODE_ENV !== 'production',
   },
-});
+);
+
+export const persistor =  persistStore(store);
