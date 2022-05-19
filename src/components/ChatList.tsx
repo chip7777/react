@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { ListItem } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { addChat, deleteChat } from '../store/chats/actions';
+import { addChat, deleteChat } from '../store/chats/slice';
 import { selectChatList } from '../store/chats/selectors';
 
 export const ChatList: FC = () => {
@@ -15,7 +15,7 @@ export const ChatList: FC = () => {
     e.preventDefault();
 
     if (name) {
-      dispatch(addChat(name));
+      dispatch(addChat({ name }));
       setName('');
     }
   };
@@ -28,7 +28,7 @@ export const ChatList: FC = () => {
             <NavLink 
             style={({ isActive }) => ({ color: isActive ? 'green' : 'blue' })}
             to={`/chats/${chat.name}`}>{chat.name}</NavLink>
-            <button onClick={() => dispatch(deleteChat(chat.name))}>x</button>
+            <button onClick={() => dispatch(deleteChat({ chatId: chat.name }))}>x</button>
           </ListItem>
         ))}
       </ul>

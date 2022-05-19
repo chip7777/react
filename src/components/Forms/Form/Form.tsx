@@ -3,10 +3,10 @@ import { Button } from '../Button/Button';
 import { Input } from '../Input/Input';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addMessageWithReply } from '../../../store/chats/actions';
+import { addMessageWithReply } from '../../../store/chats/slice';
 import { AUTHOR } from '../../../constants';
 import { ThunkDispatch } from 'redux-thunk';
-import { ChatsState } from '../../../store/chats/reducer';
+import { ChatState } from '../../../store/chats/slice';
 import { AddMessage } from '../../../store/chats/types';
 
 export const Form: FC = memo(() => {
@@ -14,7 +14,7 @@ export const Form: FC = memo(() => {
   const { chatId } = useParams();
 
   const dispatch =
-    useDispatch<ThunkDispatch<ChatsState, void, ReturnType<AddMessage>>>();
+    useDispatch<ThunkDispatch<ChatState, void, ReturnType<AddMessage>>>();
 
   const handleInput = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setValue(ev.target.value);
@@ -24,7 +24,9 @@ export const Form: FC = memo(() => {
     e.preventDefault();
     if (chatId && value) {
       dispatch(
-        addMessageWithReply(chatId, { text: value, author: AUTHOR.USER }),
+        addMessageWithReply({ chatId, 
+          message: { author: AUTHOR.USER, text: value }
+        }),
       );
     }
     setValue('');

@@ -7,6 +7,9 @@ import { Error } from '../pages/Error';
 import { Profile } from '../pages/Profile';
 import { ChatList } from './ChatList';
 import { AboutWithConnect } from '../pages/About';
+import { Articles } from '../pages/Articles';
+import { SignIn } from '../pages/SignIn';
+import { SignUp } from '../pages/SignUp';
 
 const Chats = React.lazy(() =>
   import('../pages/Chats').then((module) => ({
@@ -27,6 +30,9 @@ export const AppRouter: FC = () => {
               <Route path=":chatId" element={<Chats />} />
             </Route>
             <Route path="about" element={<AboutWithConnect />} />
+            <Route path="articles" element={<Articles />} />
+            <Route path="signin" element={<SignIn />} />
+            <Route path="signup" element={<SignUp />} />
           </Route>
 
           <Route path="*" element={<Error />} />

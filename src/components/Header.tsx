@@ -7,6 +7,7 @@ const navigate = [
   { id: 2, to: '/profile', name: 'Profile' },
   { id: 3, to: '/chats', name: 'Chats' },
   { id: 4, to: '/about', name: 'About' },
+  { id: 5, to: '/articles', name: 'Articles' },
 ];
 
 export const Header: FC = () => {

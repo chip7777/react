@@ -1,8 +1,9 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import { chatReducer } from './chats/reducer';
-import { profileReducer } from './profile/reducer';
-import {  persistStore, persistReducer } from 'redux-persist';
+import { chatReducer } from './chats/slice';
+import { profileReducer } from './profile/slice';
+import {  persistStore, persistReducer, REHYDRATE, PAUSE, PERSIST, PURGE, FLUSH } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { REGISTER } from 'redux-persist/lib/constants';
 
 const rootReducer = combineReducers({
   profile: profileReducer,
@@ -20,9 +21,14 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
   devTools: process.env.NODE_ENV !== 'production',
-  },
-);
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware ({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+  reducer: persistedReducer,
+});
 
 export const persistor =  persistStore(store);
