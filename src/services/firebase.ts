@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app';
+import { getDatabase, ref } from 'firebase/database';
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -14,6 +15,7 @@ const firebaseConfig = {
   storageBucket: 'chip7777-react.appspot.com',
   messagingSenderId: '812273063624',
   appId: '1:812273063624:web:f06d8e762b4231a4cdf7fd',
+  databaseURL: 'chip7777-react-default-rtdb.europe-west1.firebasedatabase.app',
 };
 
 const firebase = initializeApp(firebaseConfig);
@@ -29,3 +31,7 @@ export const logIn = async (email: string, password: string) =>
   await signInWithEmailAndPassword(auth, email, password);
 
 export const logOut = async () => await signOut(auth);
+
+const database = getDatabase(firebase);
+
+export const userRef = ref(database, 'user');
